@@ -23,10 +23,13 @@ class RandomCharacterService : Service() {
                     val randomIndex = (min..max).random();
                     val randomChar = charArr[randomIndex];
                     Log.i(TAG, "Random Character: $randomChar");
-                    val broadCastIntent = Intent()
-                    broadCastIntent.setAction("com.example.backgroundservice")
-                    broadCastIntent.putExtra("randomChar", randomChar)
+                    val broadCastIntent = Intent().apply {
+                        action = "com.example.backgroundservice"
+                        putExtra("randomChar", randomChar)
+                        setPackage(packageName)
+                    }
                     sendBroadcast(broadCastIntent)
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace();
